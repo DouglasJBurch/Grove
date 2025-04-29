@@ -1,45 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Site</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background: #f0f0f0;
-        }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        img {
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        a.button {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: background 0.3s;
-        }
-        a.button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Douglas Burch | Power Platform Developer</title>
+  <style>
+    :root {
+      --primary-color: #0B2545; /* Deep Indigo Blue */
+      --secondary-color: #13315C; /* Midnight Blue */
+      --accent-color: #5D4E8C; /* Dusky Purple */
+      --sidebar-color: #1E3A5F; /* Lighter blue for sidebar */
+      --text-color: #E0E0E0; /* Soft Grayish White */
+      --highlight-color: #A9BCD0; /* Faint Fog Blue */
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+      background-size: cover;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+      animation: moveStars 100s linear infinite;
+    }
+
+    @keyframes moveStars {
+      0% { background-position: 0 0; }
+      100% { background-position: -200px 200px; }
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      background: var(--sidebar-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      padding: 20px;
+      width: 200px;
+      z-index: 999;
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: transform 0.5s, opacity 0.5s;
+    }
+
+    .sidebar.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .close-sidebar {
+      background: var(--accent-color);
+      border: none;
+      border-radius: 50%;
+      color: var(--primary-color);
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: auto;
+      display: block;
+    }
+
+    .sidebar h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 10px 0;
+      color: var(--text-color);
+      text-decoration: none;
+      text-align: center;
+      padding: 8px;
+      background: var(--accent-color);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: var(--highlight-color);
+      box-shadow: 0 0 8px var(--highlight-color);
+    }
+
+    header {
+      text-align: center;
+      padding: 120px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border: 4px solid var(--highlight-color);
+      background: var(--secondary-color);
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 10px 0;
+    }
+
+    header p {
+      font-size: 18px;
+      color: var(--highlight-color);
+    }
+
+    section {
+      margin: 60px auto;
+      max-width: 1000px;
+      background: var(--secondary-color);
+      padding: 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--accent-color);
+    }
+
+    .card p {
+      font-size: 16px;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--accent-color);
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 8px 16px;
+    }
+
+    .card a:hover {
+      background: var(--highlight-color);
+    }
+
+    .cluster {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .cluster img {
+      width: 60px;
+      transition: transform 0.6s ease;
+    }
+
+    .cluster img:first-child {
+      width: 90px;
+    }
+
+    .cluster img:hover {
+      animation: bounce 0.8s ease;
+    }
+
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      70% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      background: var(--primary-color);
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    @media(max-width:768px) {
+      .sidebar { display: none; }
+    }
+  </style>
+  <script>
+    window.addEventListener('scroll', () => {
+      const sidebar = document.querySelector('.sidebar');
+      if (window.scrollY > 200) {
+        sidebar.classList.add('visible');
+      } else {
+        sidebar.classList.remove('visible');
+      }
+    });
+  </script>
 </head>
 <body>
-    <h1>Welcome to My Awesome Website!</h1>
-    <img src="https://picsum.photos/300" alt="Random Image">
-    <br><br>
-    <a href="https://google.com" target="_blank" class="button">Go to Google</a>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <button class="close-sidebar" onclick="document.querySelector('.sidebar').style.display='none'">&#10006;</button>
+  <h3>Connect</h3>
+  <a href="#">LinkedIn</a>
+  <a href="#">Microsoft Certification</a>
+</div>
+
+<!-- Header -->
+<header>
+  <img src="https://www.midlandstech.edu/sites/default/files/styles/success_story/public/2020-10/DougBurch.JPG.webp?itok=NC00ovQE" alt="Douglas Burch">
+  <h1>Douglas Burch</h1>
+  <p>Power Platform Developer | Process Improvement Specialist</p>
+</header>
+
+<!-- Logo Cluster -->
+<div class="cluster">
+  <img src="https://vectorseek.com/wp-content/uploads/2023/11/Microsoft-Power-Platform-Logo-Vector.svg-.png" alt="Power Platform">
+  <img src="https://seekvectors.com/files/download/3ab340e2a806b576a6d91bbb74cac03c.jpg" alt="Power Apps">
+  <img src="https://www.freelogovectors.net/wp-content/uploads/2023/11/power-bi-logo-freelogovectors.net_.png" alt="Power BI">
+  <img src="https://thaka.bing.com/th/id/OIP.SJR85eZCsaxBKeJ-mXQjvwHaHa?rs=1&pid=ImgDetMain" alt="Power Automate">
+  <img src="https://th.bing.com/th/id/R.e0179053a4b3a9cf1ae129a0b278e46d?rik=WHr0CQtK2Pvwvg&riu=http%3a%2f%2fassets.stickpng.com%2fimages%2f61046931ada36000041881bd.png&ehk=JdVNwvbz%2fLz6N%2fLSKQcg%2byymTrl%2fSIwUcJ682M2dzFs%3d&risl=&pid=ImgRaw&r=0" alt="SharePoint">
+</div>
+
+<!-- About Section -->
+<section>
+  <h2>About Me</h2>
+  <p>I specialize in building scalable, user-friendly solutions using Microsoft Power Platform. Self-driven, AI-assisted, with a passion for automating and enhancing business workflows in manufacturing and beyond.</p>
+</section>
+
+<!-- Projects Section -->
+<section>
+  <h2>Featured Projects</h2>
+  <div class="projects">
+    <div class="card">
+      <h3>Inventory Tracking System</h3>
+      <p>Batch tracking, live updates, and visibility dashboards built in PowerApps + SharePoint.</p>
+      <a href="#">View Details</a>
+    </div>
+    <div class="card">
+      <h3>First Article Inspection (MFAI)</h3>
+      <p>Approval/rejection workflows fully automated with integrated email chains.</p>
+      <a href="#">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Interactive Floorplan Visualization</h3>
+      <p>Real-time machine status mapping through PowerApps spatial UI.</p>
+      <a href="#">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Automated Communication Workflows</h3>
+      <p>Power Automate solutions for alerts, scheduled reports, and escalation notices.</p>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Douglas Burch. Built independently with AI-empowered creativity.
+</footer>
+
 </body>
 </html>
